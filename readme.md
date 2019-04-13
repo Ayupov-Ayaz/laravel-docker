@@ -7,6 +7,14 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Инструкция
+
+ - Скопировать `.env.example` как `.env` 
+ - Запустить сборку командой `docker-compoe up -d --build`
+ - Подключиться к базе данных, параметры подключения прописаны в `.env`, хост указать как `localhost`, а порт можно посмотреть из `docker-compose.yml`
+ - Выполнить дамп файлов из `./database/db_dump.sql`
+ - Зайти в контейнер выполнив команду `docker-compose exec fpm bash ` и запустить `./commands.sh`
+ 
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
