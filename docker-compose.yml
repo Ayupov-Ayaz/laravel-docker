@@ -1,0 +1,51 @@
+version: '3.3'
+
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx.Dockerfile
+    ports:
+      - 8090:80
+    container_name: mrricco_nginx
+    volumes:
+      - ./:/var/www/mrricco
+      - ./docker/resources/storage/:/var/www/mrricco/storage/app/public/
+    depends_on:
+      - fpm
+    links:
+      - fpm
+
+  fpm:
+    build: .
+    volumes:
+      - ./:/var/www/mrricco
+      - ./docker/resources/storage/:/var/www/mrricco/storage/app/public/
+    container_name: mrricco_fpm
+    depends_on:
+      - composer
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    env_file:
+      - .env
+    volumes:
+      - ./docker/resources/db:/var/lib/mysql
+    ports:
+      - 3307:3306
+    container_name: mrricco_mysql
+    environment:
+      - MYSQL_DATABASE=${APP_NAME}
+      - MYSQL_USER=${APP_NAME}
+      - MYSQL_ROOT_PASSWORD=${APP_NAME}
+      - MYSQL_PASSWORD=${APP_NAME}
+
+  composer:
+    image: composer
+    volumes:
+      - ./:/app/:rw
+    working_dir: /app
+    command: composer install
+    container_name: mrricco_composer

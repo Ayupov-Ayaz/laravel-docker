@@ -1,0 +1,10 @@
+.git
+Dockerfile
+.DS_Store
+.gitignore
+.gitattributes
+README.md
+env.*
+.idea
+readme.md
+docker/resources/*
