@@ -18,7 +18,9 @@ services:
       - fpm
 
   fpm:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/fpm.Dockerfile
     volumes:
       - ./:/var/www/mrricco
       - ./docker/resources/storage/:/var/www/mrricco/storage/app/public/
@@ -29,14 +31,13 @@ services:
 
   mysql:
     image: mysql:5.7
-    env_file:
-      - .env
     volumes:
       - ./docker/resources/db:/var/lib/mysql
     ports:
       - 3307:3306
     container_name: mrricco_mysql
     environment:
+      - APP_NAME=mrricco
       - MYSQL_DATABASE=${APP_NAME}
       - MYSQL_USER=${APP_NAME}
       - MYSQL_ROOT_PASSWORD=${APP_NAME}
