@@ -10,5 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl git apt-tr
 
 COPY . ./
 
-RUN composer install
-RUN  bash commands.sh
+RUN composer install \
+    && echo "APP_KEY="> .env && chmod -R 777 .env \
+    &&  bash commands.sh
+
