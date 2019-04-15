@@ -5,9 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl \
 
 WORKDIR /var/www/mrricco
 
-#COPY . ./ //todo: вернуть для деплоя
+COPY . ./
 
-#RUN chmod -R 777 ./storage
+RUN bash commands.sh
 
 EXPOSE 9000
 
