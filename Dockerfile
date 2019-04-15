@@ -1,13 +1,17 @@
 FROM php:7.2.10-fpm
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
-    && docker-php-ext-install pdo pdo_mysql
-
 WORKDIR /var/www/mrricco
+
+RUN apt-get update && apt-get install -y --no-install-recommends curl git apt-transport-https \
+    && docker-php-ext-install pdo pdo_mysql \
+    && curl -sSk https://getcomposer.org/installer | php -- --disable-tls \
+    &&  mv composer.phar /usr/local/bin/composer \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . ./
 
-RUN bash commands.sh
+RUN composer install
+RUN  bash commands.sh
 
 EXPOSE 9000
 
