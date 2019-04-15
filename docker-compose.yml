@@ -37,9 +37,10 @@ services:
       - 3307:3306
     container_name: mrricco_mysql
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_DATABASE}
-      - MYSQL_PASSWORD=${MYSQL_DATABASE}
+      - MYSQL_DATABASE=${APP_NAME}
+      - MYSQL_USER=${APP_NAME}
+      - MYSQL_ROOT_PASSWORD=${APP_NAME}
+      - MYSQL_PASSWORD=${APP_NAME}
 
   composer:
     image: composer
